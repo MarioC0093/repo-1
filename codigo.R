@@ -15,6 +15,12 @@ datos_madrid <-
   # Resumen de casos diarios por fecha y sexo
   summarise(num_casos = sum(num_casos), .by = c(fecha, sexo))
 
+datos_bcn <-
+  datos_covid |>
+  filter(provincia_iso == "B" & fecha <= "2020-12-31" & sexo != "NC") |> 
+  select(fecha, sexo, grupo_edad, num_casos) |> 
+  summarise(num_casos = sum(num_casos), .by = c(fecha, sexo))
+
 # Exportamos datos
 write_csv(datos_madrid, file = "./exportado/datos_madrid.csv")
 
